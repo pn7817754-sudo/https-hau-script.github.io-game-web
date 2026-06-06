@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vòng Quay May Mắn</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    background:#1e1e1e;
+    color:white;
+}
+
+h1{
+    margin-top:20px;
+}
+
+#wheel{
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    border:8px solid white;
+    margin:30px auto;
+    background:conic-gradient(
+        #ff4d4d 0deg 60deg,
+        #4dff4d 60deg 120deg,
+        #4d4dff 120deg 180deg,
+        #ffff4d 180deg 240deg,
+        #ff4dff 240deg 300deg,
+        #4dffff 300deg 360deg
+    );
+    transition:transform 5s ease-out;
+}
+
+.pointer{
+    font-size:40px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#result{
+    margin-top:20px;
+    font-size:24px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎲 Vòng Quay May Mắn</h1>
+
+<div class="pointer">⬇️</div>
+<div id="wheel"></div>
+
+<button onclick="spin()">QUAY NGAY</button>
+
+<h2 id="result"></h2>
+
+<script>
+const prizes = [
+    "10 Kim Cương 💎",
+    "20 Kim Cương 💎",
+    "50 Kim Cương 💎",
+    "100 Kim Cương 💎",
+    "Acc VIP 🔥",
+    "Chúc May Mắn Lần Sau 😅"
+];
+
+let spinning = false;
+
+function spin(){
+
+    if(spinning) return;
+
+    spinning = true;
+
+    const wheel = document.getElementById("wheel");
+
+    const randomDeg = 3600 + Math.floor(Math.random()*360);
+
+    wheel.style.transform = `rotate(${randomDeg}deg)`;
+
+    setTimeout(() => {
+
+        const deg = randomDeg % 360;
+
+        const index = Math.floor((360 - deg) / 60) % 6;
+
+        document.getElementById("result").innerText =
+        "🎉 Phần thưởng: " + prizes[index];
+
+        spinning = false;
+
+    },5000);
+}
+</script>
+
+</body>
+</html>
